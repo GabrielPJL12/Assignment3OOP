@@ -73,15 +73,17 @@ public class BSTree<E extends Comparable<? super E>> implements BSTreeADT<E> {
         return search(entry, root);
     }
 
-    private BSTreeNode<E> search(E entry, BSTreeNode<E> node) {
+    private BSTreeNode<E> search(E entry, BSTreeNode<E> node) throws TreeException {
         if (node == null) {
             return null;
         } else if (entry.compareTo(node.getElement()) == 0) {
             return node;
         } else if (entry.compareTo(node.getElement()) < 0) {
             return search(entry, node.getLeft());
-        } else {
+        } else if (entry.compareTo(node.getElement()) > 0) {
             return search(entry, node.getRight());
+        } else {
+            throw new TreeException("no such element in tree");
         }
     }
 
